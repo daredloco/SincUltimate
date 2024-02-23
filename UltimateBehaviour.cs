@@ -48,11 +48,13 @@ namespace SincUltimate
                     ActorCustomization.StartLoans = new int[1] { 120000 };
                     ActorCustomization.Instance.StartMoney.value = 1;
                     ActorCustomization.Instance.StartMoney.enabled = false;
+                    Globals.FirstStart = true;
                    // ActorCustomization.Instance.PersonalityChosen[1].Selected = 1; Maybe select personality at some point
                 }
                 else
                 {
                     customDifficultyButtonGo.SetActive(true);
+                    Globals.FirstStart = false;
                 }
             });
 
@@ -92,9 +94,43 @@ namespace SincUltimate
         {
             if(GameData.SelectedDifficulty.Name == "Ultimate")
             {
-                DevConsole.Console.Log("Preparing MainScene for Ultimate difficulty, please wait!");
-                DevConsole.Console.Log("MainScene prepared, have fun =)");
+                DevConsole.Console.LogInfo("Preparing MainScene for Ultimate difficulty, please wait!");
+
+                //FIRST START
+                if (Globals.FirstStart)
+                {
+                    DevConsole.Console.Log("Preparing for first start...");
+                    ChangeFounderAge();
+                }
+
+                //Remove OS
+                DevConsole.Console.LogInfo("MainScene prepared, have fun =)");
             }
+        }
+
+        private async void ChangeFounderAge()
+        {
+            DevConsole.Console.Log("Waiting for founders to be initialized...");
+            await Task.Run(() => {
+                while(GameSettings.Instance.Founders.Count < 1)
+                {
+
+                }
+                DevConsole.Console.Log("Founders initialized...");
+                foreach (var founder in GameSettings.Instance.Founders)
+                {
+                    if (founder.employee.GetAge() < 40)
+                    {
+                        DevConsole.Console.Log($"Changing age of founder \"{founder.employee.Name}\" to 40 years");
+                        var diffAge = 40 - founder.employee.GetAgeFlat();
+                        founder.employee.BirthDate = new SDateTime(founder.employee.BirthDate.Month, founder.employee.BirthDate.Year - diffAge);
+                    }
+                    else
+                    {
+                        DevConsole.Console.LogWarning($"Founder \"{founder.employee.Name}\" is already over 40 years old. Age {founder.employee.GetAgeFlat()}");
+                    }
+                }
+            });
         }
 
         public override void OnDeactivate()
