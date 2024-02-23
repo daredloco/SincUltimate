@@ -18,8 +18,12 @@ namespace SincUltimate
             title.fontSize = 24;
             var description = WindowManager.SpawnLabel();
             description.text = "Get the ultimate difficulty for your game of SINC!";
+            var thnks = WindowManager.SpawnLabel();
+            thnks.fontSize = 8;
+            thnks.text = "Special thanks goes to CF as he gave me the idea to make the mod and he did all the playtesting because I'm bad...";
             WindowManager.AddElementToElement(title.gameObject, parent.gameObject, new Rect(15, 15, 192, 32), Rect.zero);
             WindowManager.AddElementToElement(description.gameObject, parent.gameObject, new Rect(15, 60, 192, 32), Rect.zero);
+            WindowManager.AddElementToElement(thnks.gameObject, parent.gameObject, new Rect(15, 100, 192, 96), Rect.zero);
         }
     }
 }
