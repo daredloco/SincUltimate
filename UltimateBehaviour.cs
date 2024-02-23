@@ -58,6 +58,14 @@ namespace SincUltimate
                         }
                     });
                     Globals.FirstStart = true;
+                    ActorCustomization.Instance.CreativitySlider.value = 0;
+                    ActorCustomization.Instance.CreativitySlider.onValueChanged.AddListener((float f) =>
+                    {
+                        if(difficultyCb.Selected == 6 && ActorCustomization.Instance.CreativitySlider.value != 0)
+                        {
+                            ActorCustomization.Instance.CreativitySlider.value = 0;
+                        }
+                    });
                    // ActorCustomization.Instance.PersonalityChosen[1].Selected = 1; Maybe select personality at some point
                 }
                 else
