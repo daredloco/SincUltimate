@@ -77,11 +77,6 @@ namespace SincUltimate
 
         }
 
-        private UnityAction ListenToYearChange()
-        {
-            return null;
-        }
-
         private DifficultySetting UltimateSetting()
         {
             var diff = new DifficultySetting("Ultimate")
