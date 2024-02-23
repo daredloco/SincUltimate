@@ -45,7 +45,7 @@ namespace SincUltimate
                 {
                     customDifficultyButtonGo.SetActive(false);
                     ActorCustomization.StartLoanMonths = 12 * 5;
-                    ActorCustomization.StartLoans = new int[1] { 60000 };
+                    ActorCustomization.StartLoans = new int[1] { 120000 };
                     ActorCustomization.Instance.StartMoney.value = 1;
                     ActorCustomization.Instance.StartMoney.enabled = false;
                    // ActorCustomization.Instance.PersonalityChosen[1].Selected = 1; Maybe select personality at some point
@@ -76,7 +76,7 @@ namespace SincUltimate
                 ProductReputationFactor = 0.00001f,
                 RecognitionSalesFactor = 0.9f,
                 AICompanyAverageSavy = 2f,
-                Taxes = 0.5f,
+                Taxes = 0.75f,
                 MarketingEndQualityEstimate = 1f,
                 TakeoverMonths = 1f,
                 FounderDividend = 0.95f,
