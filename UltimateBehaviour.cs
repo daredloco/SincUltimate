@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using static DifficultyValues;
 
@@ -48,6 +49,14 @@ namespace SincUltimate
                     ActorCustomization.StartLoans = new int[1] { 120000 };
                     ActorCustomization.Instance.StartMoney.value = 1;
                     ActorCustomization.Instance.StartMoney.enabled = false;
+                    ActorCustomization.Instance.Year.UpdateSelection(0);
+                    ActorCustomization.Instance.Year.OnSelectedChanged.AddListener(() =>
+                    {
+                        if(difficultyCb.Selected == 6 && ActorCustomization.Instance.Year.Selected != 0)
+                        {
+                            ActorCustomization.Instance.Year.UpdateSelection(0);
+                        }
+                    });
                     Globals.FirstStart = true;
                    // ActorCustomization.Instance.PersonalityChosen[1].Selected = 1; Maybe select personality at some point
                 }
@@ -58,6 +67,11 @@ namespace SincUltimate
                 }
             });
 
+        }
+
+        private UnityAction ListenToYearChange()
+        {
+            return null;
         }
 
         private DifficultySetting UltimateSetting()
