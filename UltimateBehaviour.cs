@@ -121,6 +121,15 @@ namespace SincUltimate
                 }
 
                 //Remove OS
+                
+                GUICombobox softwareProductsCb = GameObject.Find("DesignDocumentWindow/ContentPanel/PageContent/InfoPanel/MainInfo/Combobox").GetComponent<GUICombobox>();
+                softwareProductsCb.OnSelectedChanged.AddListener(() => {
+                    if(GameData.SelectedDifficulty.Name == "Ultimate" && softwareProductsCb.Selected == 0)
+                    {
+                        softwareProductsCb.Selected = 1;
+                    }
+                });
+                
                 DevConsole.Console.LogInfo("MainScene prepared, have fun =)");
             }
         }
