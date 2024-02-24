@@ -121,10 +121,10 @@ namespace SincUltimate
                 }
 
                 //Remove OS
-                
+                DevConsole.Console.Log("Adding listener for software products combobox to deactivate OS for players");
                 GUICombobox softwareProductsCb = GameObject.Find("DesignDocumentWindow/ContentPanel/PageContent/InfoPanel/MainInfo/Combobox").GetComponent<GUICombobox>();
                 softwareProductsCb.OnSelectedChanged.AddListener(() => {
-                    if(GameData.SelectedDifficulty.Name == "Ultimate" && softwareProductsCb.Selected == 0)
+                    if(!Globals.CanOS() && GameData.SelectedDifficulty.Name == "Ultimate" && softwareProductsCb.Selected == 0)
                     {
                         softwareProductsCb.Selected = 1;
                     }
