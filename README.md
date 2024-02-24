@@ -21,6 +21,7 @@ This mod adds a new difficulty called "Ultimate," and it makes the game __a lot_
 - Founders are limited to 50% creativity
 - Disabled OS development for players until player has 100k fans
 - Tax rate is increased to **75%**
+
 _*Compared to the vanilla impossible difficulty_
 
 In all, this mod definitely brings a tough challenge to the game. It might take you many tries to be successful at the start, so we wrote a tutorial down below to help you understand the best tactics to employ with this mod.
