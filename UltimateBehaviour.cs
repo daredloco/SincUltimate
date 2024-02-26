@@ -12,13 +12,14 @@ namespace SincUltimate
 {
     public class UltimateBehaviour : ModBehaviour
     {
+        private const string UltimateTitle = "<b><color=#990000>Ultimate</color></b>";
 
         public override void OnActivate()
         {
-            DevConsole.Console.LogInfo("--Ultimate Difficulty activated--");
+            Globals.WriteLog("--Ultimate Difficulty activated--","info");
             if(Difficulties.Count < 7)
             {
-                Difficulties.Add("Ultimate", UltimateSetting());
+                Difficulties.Add(UltimateTitle, UltimateSetting());
             }
 
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
@@ -111,17 +112,17 @@ namespace SincUltimate
         {
             if(GameData.SelectedDifficulty.Name == "Ultimate")
             {
-                DevConsole.Console.LogInfo("Preparing MainScene for Ultimate difficulty, please wait!");
+                Globals.WriteLog("Preparing MainScene for Ultimate difficulty, please wait!", "info");
 
                 //FIRST START
                 if (Globals.FirstStart)
                 {
-                    DevConsole.Console.Log("Preparing for first start...");
+                    Globals.WriteLog("Preparing for first start...");
                     ChangeFounderAge();
                 }
 
                 //Remove OS
-                DevConsole.Console.Log("Adding listener for software products combobox to deactivate OS for players");
+                Globals.WriteLog("Adding listener for software products combobox to deactivate OS for players");
                 GUICombobox softwareProductsCb = GameObject.Find("DesignDocumentWindow/ContentPanel/PageContent/InfoPanel/MainInfo/Combobox").GetComponent<GUICombobox>();
                 softwareProductsCb.OnSelectedChanged.AddListener(() => {
                     if(GameData.SelectedDifficulty.Name == "Ultimate" && softwareProductsCb.Selected == 0 && !Globals.CanOS())
@@ -129,31 +130,32 @@ namespace SincUltimate
                         softwareProductsCb.Selected = 1;
                     }
                 });
-                
-                DevConsole.Console.LogInfo("MainScene prepared, have fun =)");
+
+                Globals.WriteLog("MainScene prepared, have fun =)", "info");
             }
         }
 
         private async void ChangeFounderAge()
         {
-            DevConsole.Console.Log("Waiting for founders to be initialized...");
+            Globals.WriteLog("Waiting for founders to be initialized...");
             await Task.Run(() => {
                 while(GameSettings.Instance.Founders.Count < 1)
                 {
 
                 }
-                DevConsole.Console.Log("Founders initialized...");
+                Globals.WriteLog("Founders initialized...");
                 foreach (var founder in GameSettings.Instance.Founders)
                 {
                     if (founder.employee.GetAge() < 40)
                     {
-                        DevConsole.Console.Log($"Changing age of founder \"{founder.employee.Name}\" to 40 years");
+                        Globals.WriteLog($"Changing age of founder \"{founder.employee.Name}\" to 40 years");
                         var diffAge = 40 - founder.employee.GetAgeFlat();
-                        founder.employee.BirthDate = new SDateTime(founder.employee.BirthDate.Month, founder.employee.BirthDate.Year - diffAge);
+                        var founderAge = new SDateTime(0, 40);
+                        founder.employee.BirthDate = founderAge;
                     }
                     else
                     {
-                        DevConsole.Console.LogWarning($"Founder \"{founder.employee.Name}\" is already over 40 years old. Age {founder.employee.GetAgeFlat()}");
+                        Globals.WriteLog($"Founder \"{founder.employee.Name}\" is already over 40 years old. Age {founder.employee.GetAgeFlat()}", "warn");
                     }
                 }
             });
@@ -161,11 +163,11 @@ namespace SincUltimate
 
         public override void OnDeactivate()
         {
-            DevConsole.Console.LogInfo("--Ultimate Difficulty deactivated--");
+            Globals.WriteLog("--Ultimate Difficulty deactivated--", "info");
 
             if (Difficulties.Count >= 7)
             {
-                Difficulties.Remove("Ultimate");
+                Difficulties.Remove(UltimateTitle);
             }
 
             SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
