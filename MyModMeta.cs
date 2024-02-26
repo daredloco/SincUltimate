@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SincUltimate
 {
@@ -25,10 +26,19 @@ namespace SincUltimate
             var thnks = WindowManager.SpawnLabel();
             thnks.fontSize = 12;
             thnks.text = "Special thanks goes to CF as he gave me the idea to make the mod and he did all the playtesting because I'm bad...";
+
+            var debugToggle = WindowManager.SpawnCheckbox();
+            debugToggle.GetComponentInChildren<Text>().text = "Debug Mode";
+            debugToggle.isOn = Globals.DebugMode;
+            debugToggle.onValueChanged.AddListener((bool state) => {
+                DevConsole.Console.LogInfo("Sinc Ultimate debugmode is now set to " + state.ToString());
+                Globals.DebugMode = debugToggle.isOn;
+            });
             WindowManager.AddElementToElement(title.gameObject, parent.gameObject, new Rect(15, 15, 320, 32), Rect.zero);
             WindowManager.AddElementToElement(author.gameObject, parent.gameObject, new Rect(15, 50, 320, 32), Rect.zero);
             WindowManager.AddElementToElement(description.gameObject, parent.gameObject, new Rect(15, 90, 320, 64), Rect.zero);
             WindowManager.AddElementToElement(thnks.gameObject, parent.gameObject, new Rect(15, 170, 260, 96), Rect.zero);
+            WindowManager.AddElementToElement(debugToggle.gameObject, parent.gameObject, new Rect(15, 280, 260, 32), Rect.zero);
         }
     }
 }
