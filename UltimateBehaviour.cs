@@ -12,13 +12,14 @@ namespace SincUltimate
 {
     public class UltimateBehaviour : ModBehaviour
     {
+        private const string UltimateTitle = "<b><color=#990000>Ultimate</color></b>";
 
         public override void OnActivate()
         {
             DevConsole.Console.LogInfo("--Ultimate Difficulty activated--");
             if(Difficulties.Count < 7)
             {
-                Difficulties.Add("Ultimate", UltimateSetting());
+                Difficulties.Add(UltimateTitle, UltimateSetting());
             }
 
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
@@ -165,7 +166,7 @@ namespace SincUltimate
 
             if (Difficulties.Count >= 7)
             {
-                Difficulties.Remove("Ultimate");
+                Difficulties.Remove(UltimateTitle);
             }
 
             SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
