@@ -150,7 +150,8 @@ namespace SincUltimate
                     {
                         DevConsole.Console.Log($"Changing age of founder \"{founder.employee.Name}\" to 40 years");
                         var diffAge = 40 - founder.employee.GetAgeFlat();
-                        founder.employee.BirthDate = new SDateTime(founder.employee.BirthDate.Month, founder.employee.BirthDate.Year - diffAge);
+                        var founderAge = new SDateTime(0, 40);
+                        founder.employee.BirthDate = founderAge;
                     }
                     else
                     {
