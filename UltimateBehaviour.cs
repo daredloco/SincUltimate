@@ -84,9 +84,9 @@ namespace SincUltimate
         {
             var creativityLabelTooltip = GameObject.Find("MainPanel/SubSkill/Skill/CreativityPanel/Text").GetComponent<GUIToolTipper>();
             var creativitySliderTooltip = GameObject.Find("MainPanel/SubSkill/Skill/CreativityPanel/Slider").GetComponentInChildren<GUIToolTipper>();
-
-            creativityLabelTooltip.TooltipDescription = "<color=#990000><b>Ultimate Difficulty limits founder creativity to 50%.</b></color> Creativity determines the quality of ideas your founder will generate as a lead designer when developing new products. Creativity is innate and cannot improve with training.";
-            creativitySliderTooltip.TooltipDescription = "<color=#990000><b>Ultimate Difficulty limits founder creativity to 50%.</b></color> Creativity determines the quality of ideas your founder will generate as a lead designer when developing new products. Creativity is innate and cannot improve with training.";
+           
+            creativityLabelTooltip.TooltipDescription = "ULTIMATE_CREATIVITY_TOOLTIP";
+            creativitySliderTooltip.TooltipDescription = "ULTIMATE_CREATIVITY_TOOLTIP";
         }
 
         private DifficultySetting UltimateSetting()
