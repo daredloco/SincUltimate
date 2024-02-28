@@ -84,7 +84,13 @@ namespace SincUltimate
         {
             var creativityLabelTooltip = GameObject.Find("MainPanel/SubSkill/Skill/CreativityPanel/Text").GetComponent<GUIToolTipper>();
             var creativitySliderTooltip = GameObject.Find("MainPanel/SubSkill/Skill/CreativityPanel/Slider").GetComponentInChildren<GUIToolTipper>();
-           
+            var yearDropdown = GameObject.Find("MainPanel/GameConf/Year");
+            var yearDropdownTooltip = yearDropdown.AddComponent<GUIToolTipper>();
+            var loanSlider = GameObject.Find("MainPanel/GameConf/MoneySlider/Handle Slide Area/Handle");
+            var loanSliderTooltip = loanSlider.AddComponent<GUIToolTipper>();
+
+            yearDropdownTooltip.TooltipDescription = "ULTIMATE_YEAR_TOOLTIP";
+            loanSliderTooltip.TooltipDescription = "ULTIMATE_LOAN_TOOLTIP";
             creativityLabelTooltip.TooltipDescription = "ULTIMATE_CREATIVITY_TOOLTIP";
             creativitySliderTooltip.TooltipDescription = "ULTIMATE_CREATIVITY_TOOLTIP";
         }
