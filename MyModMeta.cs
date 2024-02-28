@@ -15,18 +15,17 @@ namespace SincUltimate
         public override void ConstructOptionsScreen(RectTransform parent, bool inGame)
         {
             var title = WindowManager.SpawnLabel();
-            title.text = "Ultimate Difficulty";
+            title.text = "<b>Ultimate Difficulty</b>";
             title.fontSize = 28;
             var author = WindowManager.SpawnLabel();
             author.text = "by daRedLoCo";
-            author.fontSize = 24;
-            var description = WindowManager.SpawnLabel();
-            description.fontSize = 20;
-            description.text = "Get the ultimate difficulty for your game of SINC!";
+            author.fontSize = 20;
             var thnks = WindowManager.SpawnLabel();
-            thnks.fontSize = 12;
-            thnks.text = "Special thanks goes to CF as he gave me the idea to make the mod and he did all the playtesting because I'm bad...";
-
+            thnks.fontSize = 14;
+            thnks.text = "Playtester/Ideagiver/Description: CF";
+            var description = WindowManager.SpawnLabel();
+            description.fontSize = 16;
+            description.text = "Brings a real challenge to Software Inc!";
             var debugToggle = WindowManager.SpawnCheckbox();
             debugToggle.GetComponentInChildren<Text>().text = "Debug Mode";
             debugToggle.isOn = Globals.DebugMode;
@@ -34,11 +33,11 @@ namespace SincUltimate
                 DevConsole.Console.LogInfo("Sinc Ultimate debugmode is now set to " + state.ToString());
                 Globals.DebugMode = debugToggle.isOn;
             });
-            WindowManager.AddElementToElement(title.gameObject, parent.gameObject, new Rect(15, 15, 320, 32), Rect.zero);
-            WindowManager.AddElementToElement(author.gameObject, parent.gameObject, new Rect(15, 50, 320, 32), Rect.zero);
-            WindowManager.AddElementToElement(description.gameObject, parent.gameObject, new Rect(15, 90, 320, 64), Rect.zero);
-            WindowManager.AddElementToElement(thnks.gameObject, parent.gameObject, new Rect(15, 170, 260, 96), Rect.zero);
-            WindowManager.AddElementToElement(debugToggle.gameObject, parent.gameObject, new Rect(15, 280, 260, 32), Rect.zero);
+            WindowManager.AddElementToElement(title.gameObject, parent.gameObject, new Rect(15, 15, 320, 28), Rect.zero);
+            WindowManager.AddElementToElement(author.gameObject, parent.gameObject, new Rect(15, 50, 320, 20), Rect.zero);
+            WindowManager.AddElementToElement(thnks.gameObject, parent.gameObject, new Rect(15, 75, 260, 14), Rect.zero);
+            WindowManager.AddElementToElement(description.gameObject, parent.gameObject, new Rect(15, 95, 320, 32), Rect.zero);
+            WindowManager.AddElementToElement(debugToggle.gameObject, parent.gameObject, new Rect(15, 135, 260, 32), Rect.zero);
         }
     }
 }

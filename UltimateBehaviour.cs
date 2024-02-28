@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
@@ -45,6 +46,7 @@ namespace SincUltimate
                 GameObject customDifficultyButtonGo = GameObject.Find("MainPanel/GameConf/-FCustomDiff");
                 if (difficultyCb.Selected == 6)
                 {
+                    ChangeCustomizationTooltips();
                     customDifficultyButtonGo.SetActive(false);
                     ActorCustomization.StartLoanMonths = 12 * 5;
                     ActorCustomization.StartLoans = new int[1] { 120000 };
@@ -76,6 +78,21 @@ namespace SincUltimate
                 }
             });
 
+        }
+
+        private void ChangeCustomizationTooltips()
+        {
+            var creativityLabelTooltip = GameObject.Find("MainPanel/SubSkill/Skill/CreativityPanel/Text").GetComponent<GUIToolTipper>();
+            var creativitySliderTooltip = GameObject.Find("MainPanel/SubSkill/Skill/CreativityPanel/Slider").GetComponentInChildren<GUIToolTipper>();
+            var yearDropdown = GameObject.Find("MainPanel/GameConf/Year");
+            var yearDropdownTooltip = yearDropdown.AddComponent<GUIToolTipper>();
+            var loanSlider = GameObject.Find("MainPanel/GameConf/MoneySlider/Handle Slide Area/Handle");
+            var loanSliderTooltip = loanSlider.AddComponent<GUIToolTipper>();
+
+            yearDropdownTooltip.TooltipDescription = "ULTIMATE_YEAR_TOOLTIP";
+            loanSliderTooltip.TooltipDescription = "ULTIMATE_LOAN_TOOLTIP";
+            creativityLabelTooltip.TooltipDescription = "ULTIMATE_CREATIVITY_TOOLTIP";
+            creativitySliderTooltip.TooltipDescription = "ULTIMATE_CREATIVITY_TOOLTIP";
         }
 
         private DifficultySetting UltimateSetting()
