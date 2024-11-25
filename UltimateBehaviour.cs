@@ -22,8 +22,21 @@ namespace SincUltimate
             {
                 Difficulties.Add(UltimateTitle, UltimateSetting());
             }
-
+            GameSettings.IsDoneLoadingGame += OnIsDoneLoadingGame;
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+        }
+
+        public override void OnDeactivate()
+        {
+            Globals.WriteLog("--Ultimate Difficulty deactivated--", "info");
+
+            if (Difficulties.Count >= 7)
+            {
+                Difficulties.Remove(UltimateTitle);
+            }
+
+            GameSettings.IsDoneLoadingGame -= OnIsDoneLoadingGame;
+            SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
         }
 
         private void SceneManager_sceneLoaded(Scene newScene, LoadSceneMode arg1)
@@ -131,13 +144,6 @@ namespace SincUltimate
             {
                 Globals.WriteLog("Preparing MainScene for Ultimate difficulty, please wait!", "info");
 
-                //FIRST START
-                if (Globals.FirstStart)
-                {
-                    Globals.WriteLog("Preparing for first start...");
-                    ChangeFounderAge();
-                }
-
                 //Remove OS
                 Globals.WriteLog("Adding listener for software products combobox to deactivate OS for players");
                 GUICombobox softwareProductsCb = GameObject.Find("DesignDocumentWindow/ContentPanel/PageContent/InfoPanel/MainInfo/Combobox").GetComponent<GUICombobox>();
@@ -152,42 +158,22 @@ namespace SincUltimate
             }
         }
 
-        private async void ChangeFounderAge()
+        public void OnIsDoneLoadingGame(object sender, EventArgs e)
         {
-            Globals.WriteLog("Waiting for founders to be initialized...");
-            await Task.Run(() => {
-                while(GameSettings.Instance.Founders.Count < 1)
-                {
-
-                }
-                Globals.WriteLog("Founders initialized...");
-                foreach (var founder in GameSettings.Instance.Founders)
-                {
-                    if (founder.employee.GetAge() < 40)
-                    {
-                        Globals.WriteLog($"Changing age of founder \"{founder.employee.Name}\" to 40 years");
-                        var diffAge = 40 - founder.employee.GetAgeFlat();
-                        var founderAge = new SDateTime(0, 40);
-                        founder.employee.BirthDate = founderAge;
-                    }
-                    else
-                    {
-                        Globals.WriteLog($"Founder \"{founder.employee.Name}\" is already over 40 years old. Age {founder.employee.GetAgeFlat()}", "warn");
-                    }
-                }
-            });
-        }
-
-        public override void OnDeactivate()
-        {
-            Globals.WriteLog("--Ultimate Difficulty deactivated--", "info");
-
-            if (Difficulties.Count >= 7)
+            foreach (var founder in GameSettings.Instance.Founders)
             {
-                Difficulties.Remove(UltimateTitle);
+                if (founder.employee.GetAge() < 40)
+                {
+                    Globals.WriteLog($"Changing age of founder \"{founder.employee.Name}\" to 40 years");
+                    //var diffAge = 40 - founder.employee.GetAgeFlat(); Just keeping it for you Kenneth <3
+                    var founderAge = new SDateTime(0, 40);
+                    founder.employee.BirthDate = founderAge;
+                }
+                else
+                {
+                    Globals.WriteLog($"Founder \"{founder.employee.Name}\" is already over 40 years old. Age {founder.employee.GetAgeFlat()}", "warn");
+                }
             }
-
-            SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
         }
     }
 }
