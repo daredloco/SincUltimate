@@ -112,7 +112,7 @@ namespace SincUltimate
                 PressReleaseHypeDeadline = 8f,
                 ProductReputationFactor = 0.00001f,
                 RecognitionSalesFactor = 0.9f,
-                AICompanyAverageSavy = 2f,
+                AICompanyAverageSavy = 1f,
                 Taxes = 0.75f,
                 MarketingEndQualityEstimate = 1f,
                 TakeoverMonths = 1f,
